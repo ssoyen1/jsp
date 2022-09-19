@@ -16,7 +16,7 @@
 		<%
 			// DB에 있는 정보 가져와서 화면에 출력
 			
-			// BoardDAO 객체 생성 ( 이 객체안에 DB연결에 관한 것이 다 들어있기때문)
+			// BoardDAO 객체 생성
 			BoardDAO dao = new BoardDAO();
 		
 		
@@ -68,8 +68,8 @@
 																	// 그냥 가져오는 것과 밑에 저렇게 가져오는게 어떻게 다른가 공부하기
 			
 			
-			
 																	
+			
 			// 게시판 정보 출력
 		%>
 		<h3><a href="writeForm.jsp">글쓰기</a></h3>
@@ -93,6 +93,10 @@
 			<tr>
 				<td><%=dto.getBno() %></td>
 				<td>
+				<%if(dto.getRe_lev() > 0) {//이조건에 부합할때 이미지태그를 사용하자%> 
+					<img src="level.gif" width="<%=dto.getRe_lev()*10%>"> <!-- 답글의 답글이 더 안쪽으로 들어가도록함 -->
+					<img src="re.gif">
+				<% } %>
 					<a href="boardContent.jsp?bno=<%=dto.getBno()%>&pageNum=<%=pageNum%>"><%=dto.getSubject()%></a>
 					<!--  바로 위에있는 bno를 가져오는 것 
 					&뒤에 공백을 주면안됨. 뛰어쓰기 내맘대로하면안됨. 주소창에 %20 이 찍혀나옴 (%20=공백을 의미)-->

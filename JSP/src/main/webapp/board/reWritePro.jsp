@@ -27,7 +27,7 @@
 				//System.out.println(dto);
 					//콘솔 : BoardDTO [bno=21, name=홍길동, pass=1234, subject=[답글]답글, content=1234, readcount=0, re_ref=21, re_lev=0, re_seq=0, date=null, ip=0:0:0:0:0:0:0:1, file=null]
 				
-				// BoardDAO 객체 생성( 이 객체안에 DB연결에 관한 것이 다 들어있기때문)
+				// BoardDAO 객체 생성
 				BoardDAO dao = new BoardDAO();
 					
 				// 답글 쓰기 메서드 호출	
