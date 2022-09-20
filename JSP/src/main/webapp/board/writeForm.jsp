@@ -19,6 +19,7 @@
 					<textarea rows="10" cols="20" name="content"></textarea> <!-- </textarea>는 엔터를 따로 입력하면 공백이 다 들어감. 조심해야함. 치고싶으면 <textarea>에 치기  -->
 					<hr>
 					<input type="submit" value="글쓰기">	
+					
 						
 			</form>
 		</fieldset>

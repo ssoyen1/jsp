@@ -5,51 +5,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>writePro</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-      <h1>writePro.jsp</h1>
-      
-      <%
-         // 한글처리
-         request.setCharacterEncoding("UTF-8");
-         
-      %>
-<!--          자바빈 객체 => BoardDTO(Data Transfer Object) (=BoardBean) -->
-<!--          전달된 파라메터를 저장(액션태그로) -->
-            <jsp:useBean id="dto" class="com.itwillbs.board.BoardDTO"/>
-
-            <jsp:setProperty property="*" name="dto"/>
-            <!-- 만들어놓은 dto 객체에 저장할 것! but writeForm에서 받아온 제목, 작성자, 비밀번호, 내용만 저장한 것-->
-<%--             <%=dto.toString() %> --%>
-<!-- BoardDTO [bno=0, name=라마바, pass=1234, subject=가나다, content=ㄱㄴㄷㄹ, readcount=0, re_ref=0, re_lev=0, seq=0, date=null, ip=null, file=null] -->
-            
-            <%
-               //DTO객체에 IP주소를 추가적으로 저장!
-               dto.setIp(request.getRemoteAddr());
-            
-            %>
-            <%=dto.toString() %>
-<!--BoardDTO [bno=0, name=라마바, pass=null, subject=가나다, content=ㄱㄴㄷㄹ, readcount=0, re_ref=0, re_lev=0, seq=0, date=null, ip=0:0:0:0:0:0:0:1, file=null] -->
-            <!--  ip=0:0:0:0:0:0:0:1 는 ipv6 우리가 아는 아이피 주소는 ipv4 -->
-            
-            
-            <%
-               // 저장된 글 정보(DTO)를 DB로 저장하기
-               // BoardDAO 객체 생성
-               BoardDAO dao = new BoardDAO();
-            
-               // 글쓰기 메서드 호출
-               dao.insertBoard(dto);      // 액션태그로 만들었던 dto를 가져왔음
-            
-               
-               
-               // 리스트 페이지로 이동!
-               response.sendRedirect("boardList.jsp");
-               
-            %>
-            
-            
+		<h1>writePro.jsp</h1>
+		
+			<%
+				// 한글처리
+				request.setCharacterEncoding("UTF-8");
+				
+				// 자바빈 객체 필요 -> BoardDTO (Data Transfer Object) (=BoardBean)
+				// 전달된 파라메터를 저장 (액션태그)
+				%>
+				<jsp:useBean id="dto" class="com.itwillbs.board.BoardDTO"/> <!-- 보드빈역활을 하는 DTO -->
+				<jsp:setProperty property="*" name="dto" /> <!-- property랑 param 속성같을때 param="" 생략가능 -->
+				
+<%-- 				<%=dto.toString() %> --%>
+				
+				<%
+				 // dto 객체에 IP주소 추가 저장
+				 dto.setIp(request.getRemoteAddr());
+				
+				%>
+				
+				<%=dto.toString() %>
+				
+				
+				<%
+				 // 저장된 글정보(DTO)를 DB에 저장
+				 // BoardDAO 객체 생성 ()  -> com.itwillbs.board 에서 BoardDAO.java 생성하기
+				 BoardDAO dao = new BoardDAO(); // 위에서 모든 정보를 dto에 저장했으니 그걸 다시 가져다가 DAO에 저장한다..?
+				 
+				 // 글쓰기 메서드 호출
+				 dao.insertBoard(dto);
+				 
+				 // 리스트 페이지 이동
+				 response.sendRedirect("boardList.jsp");
+				 
+				%>
 </body>
 </html>
