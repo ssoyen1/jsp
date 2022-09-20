@@ -28,7 +28,7 @@
 	
 	<%
 	
-		// BoardDAO 객체( 이 객체안에 DB연결에 관한 것이 다 들어있기때문)
+		// BoardDAO 객체
 		BoardDAO dao = new BoardDAO();
 	
 	
