@@ -12,7 +12,7 @@
 		<h1>fileUploadPro.jsp</h1>
 		
 		<%	
-			// (1) 파일 업로드 장소 -> upload폴더 (가상경로!  이클립스 upload폴더)
+			// (1) 파일 업로드 장소 -> upload폴더 (가상경로!  이클립스 upload폴더) // 받는 매개체가 필요해서(아이클라우드. 폴더자체를 서버라고 생각하기)
 			// 실제 파일이 저장되는 곳은(서버안에 upload 폴더)
 			
 			String path = request.getRealPath("/upload"); //업로드라는 걸 실제주소를 가져와서 저장하게 폴더만들기
@@ -35,14 +35,14 @@
 						request,//내장객체. 폼태그의 정보를 받아야함.
 						path, // 파일 업로드될 경로(서버의 경로)
 						maxSize,//파일 업로드 크기
-						"UTF-8", //파일명 인코드
+						"UTF-8", //파일명 인코드 ()
 						new DefaultFileRenamePolicy() //파일이름 중복처리 객체
 						
 						);
 			
 			System.out.println("파일 업로드 성공!");
 			
-			// (4) 전달받은 정보를 저장 (이름, 메세지 출력)
+			// (4) 전달받은 정보를 저장 (이름, 메세지 출력) (파일업로드부터 처리한 뒤 정보를 저장해야함)
 			
 // 			String name = request.getParameter("name");
 			String name = multi.getParameter("name");
@@ -59,7 +59,15 @@
 			System.out.println("파일명 : "+file); 
 			System.out.println("파일명_o : "+o_file); 
 			
-			
+			//Form에서 실행 후 Pro, fileDown1까지 완료.
+			//path : C:\Users\USER\Desktop\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSP
+			//파일 업로드 성공!
+			//이름 : 1, 메세지 : 1
+			//파일명 : 보노.jpg
+			//파일명_o : 보노.jpg
+			//downloadPath : C:\Users\USER\Desktop\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSP
+			//filePath : C:\Users\USER\Desktop\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps
+			//MIMEType : image/jpeg
 			
 			
 		%>

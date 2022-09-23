@@ -11,8 +11,10 @@
 </head>
 <body>
 		<h1>fileDown1.jsp</h1>
-		
+<!-- 0919 -->		
 				<%
+				
+				
 				// 전달할 파일 이름 정보 저장
 				String fileName = request.getParameter("file_name");
 				
@@ -26,12 +28,13 @@
 														  // 객체 생성
 				String downloadPath = CTX.getRealPath(savePath); // 이 이름을 가진 대상의 실제경로를 불러오고 이것을 변수에 저장한다.
 				
-				System.out.println("downloadPath : "+downloadPath);
+				System.out.println("downloadPath : "+downloadPath); //폴더까지만 접근함.
 				
 				
 				// => 두개를 합치면 => 다운로드할 파일의 위치
 				String filePath = downloadPath+"\\"+fileName; // 
-				System.out.println("filePath : "+filePath); // 이 페이지에서 실행하면 filePath는 null 로 뜸
+				System.out.println("filePath : "+filePath); // 사진까지 뜸.
+															// 이 페이지에서 실행하면 filePath는 null 로 뜸
 															// 하지만 form페이지에서 업로드를 해주면 제대로 뜸
 															
 				
@@ -42,9 +45,12 @@
 				byte[] b = new byte[4096]; // 4 x 1024 = 4KB
 				
 				
+				
 				// 파일 입력 스트립 객체 (원하는 경로에있는 파일 열어주는 객체)
 				//						  안의 내용을 그대로 복사해서 원하는 페이지에 가져다놓아야하므로
+				//						  파일로부터 바이트로 입력받아서 바이트단위로 출력받을 수 있는 클래스
 				FileInputStream fis = new FileInputStream(filePath); // String ~ 선택하기
+				//파일의 내용을 byte 단위로 읽어 오는 클래스입니다. String 으로 변환 해야 합니다.
 				
 				
 				
@@ -56,14 +62,22 @@
 				// : 다운로드 받을때에는 확장자가 무엇인지 고려해야함. 실행하는 동작이 다르므로
 				//   ex이미지, 텍스트 각각 을 실행할 도구를 준비할 수 있으므로 거기에대한 정보를 적는 것
 				// MIME 타입의 값이 없을 경우 기본값으로 설정 됨
-				if(MIMEType == null) {
+				if(MIMEType == null) { // 이 파일을 다룰 특별한 프로그램이 없다.
 					MIMEType = "application/octet-stream"; // 기본값
+												//결국 MIME의 개별 타입 중 application에 속하는 타입인데, 8비트 단위의 binary data라는 뜻
+												//"특별히 표현할 수 있는 프로그램이 존재하지 않는 데이터의 경우 기본값으로 octet-stream을 사용한다." = 브라우저가 보통 자동으로 실행하지 않거나 실행할지 묻기도 하는 타입이다~
+												//Content-Disposition 헤더를 attachment 로 줌으로써 해당 데이터를 수신받은 브라우저가 파일을 저장 또는 다른이름으로 저장 여부를 설정하게 할 수 있다.
 					
 				}
 				
 				// 응답할 페이지의 형태를 MIME 타입의 형태로 변경
 				response.setContentType(MIMEType); // 제일위에있는 contentType="text/html을 코드로 적은 것. "이것을 MIME타입으로 바꾸겠다"
 											       // pdf를 보내면 pdf뷰어로, 이미지를 넣으면 이미지뷰어로 바꾸겠다. 
+											       // HTTP 헤더 부분의 Content-Type을 정의
+											       // setContentType("text/plain");
+			
+				
+				
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				/// ie (internet exploer) - 에대한 한글처리
 				
@@ -90,7 +104,7 @@
 				if(ieBrowser){
 					// ie 일때
 					fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+","%20");//java.net / 우리가 가져온 fileName을 UTF-8로 바꾸겠다.
-															//한글처리			//공백문자 변경	
+															//한글처리			//공백문자 변경	(\\을 공백으로 대체.익스플로어에서는 \\가 입력이안되므로)
 				}else{
 					// ie 아닐때
 					fileName = new String(fileName.getBytes("UTF-8"), "iso-8859-1"); // utf파일로 바꾸고 또다른 인코딩(iso-8859-1)으로 바꿔서 써야함
@@ -108,7 +122,7 @@
 				
 					
 				// 기본 생성되는 내장객체 out 처리	
-				out.clear(); 				 
+				out.clear();  // output stream을 닫고 버퍼를 비움	. out이 존재하는데 out이 또 생성됐으므로 걔를 없애줌	 
 				out = pageContext.pushBody();
 					
 				
@@ -134,10 +148,10 @@
 																 
 																 
 				// 배열을 사용하여 정보 전달										 
-				//-> 배열의 빈공간에 고공백을 채워서 정보 전달 
-				out2.flush();	// 플러싱. -> 배열의 빈공간에 공백을 꽉채워서 정보 전달
-								// 마지막에 공백이 남아서 못넘어오는 데이터가 없도록함.
-				out2.close();
+				//-> 배열의 빈공간에 공백을 채워서 정보 전달 
+				out2.flush();	// 플러싱. -> 배열의 빈공간에 공백을 꽉채워서 정보 전달 //포카칩 질소. 온전히 과자를 그대로 보존하기위해. 
+								// 마지막에 공백이 남아서 못넘어오는 데이터가 없도록함. // 데이터를 온전히 보존해서 보내기위해.
+				out2.close();   // 데이터 소모 위해 닫아주기.
 				fis.close();
 		%>
 </body>
