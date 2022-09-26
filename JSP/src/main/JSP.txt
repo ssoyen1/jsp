@@ -183,13 +183,124 @@ D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catali
 	
 	
 	
+	
 	* 서블릿 생성 규칙
 	1) javax.servlet.Servlet 인터페이스 객체를 구현하기
 	2) 1번의 동작을 하기 어려운 경우, javax.servlet.http.HttpServlet 상속하기
 	3) doGet() / doPost()메서드 구현해야함 (오버라이딩) (= HttpServlet에 두개가 정의되어있을것이다.)
-	4) 전달인자로 javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse 사용해야함.
+	4) 전달인자로 javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse 사용해야함. --> 웹페이지 구현안됨. 404뜸.
 	5) java.io.IOExcetion, javax.servlet.ServletExcetion을 처리해야함 (예외처리)
 	6) web.xml (배포서술자) 서블릿과 주소(url) 매핑
 		=> servlet 2.3이후에서는 어노테이션으로 대체 @WebServlet()
+	
+	
+	
+	
+	
+	(p.21~,61~)
+	
+	클라이언트
+	페이지요청 	->	웹서버 					-> 	WAS					   ->	 DB
+					(정적데이터처리)			(동적데이터 처리)
+					html, css, js, img...		 DB에 들어가는데이터값
+					
+												WAS가 동작될 때
+												서블릿(컨테이너) 생성
+												-> 주소(URL)-코드 매핑(연결) (:서블릿클래스코드와 아는 주소와 서로 동작할 수있게 만들어야하므로)
+												-> service() 메서드 호출 
+												-> doGET()/doPOST() 호출 (방식에따라서)
+												-> 동작처리 후 응답정보를 만들어서 리턴
+	
+	
+	
+	web.xml (배포서술자 : 프로젝트 실행할때 가장 먼저 호출)
+			(웹컨테이너에게 어떠한 URL요청이 서블릿요청이고, 그 서블릿요청이 사용하는 서블릿클래스는 어떤것인지 알려주는 파일)(배포서술자)
+					// (모르고삭제했을경우 새로 생성) 자바프로젝트 - 우클릭 -Java EE Tools - Generate Deployment~ 
+	
+	
+	
+	
+	* JSP <-->  Servlet
+
+	=> .jsp 파일은 .java파일(서블릿)으로 변경 후 .class파일로 컴파일 후 시행
+	   jsp - 스크립틀릿 <% %> servlet - service()안에 구현
+	   jsp - 표현식 <%= %>  servlet - service()안에 구현 / out.println()로 표현
+	   						  ex)  <%=name %>	/ out.println(name)로 표현
+	   jsp - 선언문 <%! %>    servlet - 서블릿 클래스의 멤버형태로 변경 (메서드, 변수 다 포함하는 멤버)
+	   jsp - html태그 		 servlet - service()안에 구현 / out.write() 메세지안에 들어가있음.
+	   jsp - 디렉티브 <%@ %>  servlet - 객체 생성시 참고 
+	
+	
+		D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work
+		\Catalina\localhost\JSP\org\apache\jsp
+	
+	
+	
+	
+	* EL(Expression Language) 표현식      //https://creamilk88.tistory.com/117
+	=> out.println() / <%=%> 사용해서 출력
+	   ${  } 형태로 변경
+	
+	
+	
+	* 라이브러리 설치 필수 
+	톰캣홈페이지 - taglibs - 다운받기
+	https://tomcat.apache.org/download-taglibs.cgi
+	taglibs-standard-jstlel-1.2.5.jar
+	taglibs-standard-spec-1.2.5.jar
+	taglibs-standard-impl-1.2.5.jar
+	
+	${변수명} <%=변수명%> 동일한 의미
+	${객체명.변수} / ${객체명['변수명']}
+	 => private 변수에 직접접근 가능 (해당 set/get메서드를 호출) el은 Setter/Getter없어도 바로 접근가능함 
+	${ 연산식 }
+	
+	
+	
+	
+	* EL 표현식 내장객체 p. 513
+	 - pageScope
+	 - requestScope
+	 - sessionScope
+	 - applicationScope
+     => 각각의 영역에 정보 저장/공유 (jsp 내장객체랑 공유 가능)
+		
+	 - param
+	 - paramValues
+	 => 파라메터 정보처리
+	 
+	 - header
+	 - headerValues
+	 => 해더 정보
+	 
+	 - cookie
+	 => JSP 쿠키
+	 
+	 - initParam
+	 => 초기화 정보
+	 
+	 - pageContext
+	 => 페이지 정보
+	
+	
+	
+	
+	* 가상주소 - 상대경로
+	
+	1) 가상주소 호출했을 때 
+	- ./test1 에서  => ./ 의 의미 (: 프로젝트명)  =  /JSP/test1
+	
+	
+	2) 실제주소 호출
+	- ./el/Attribute.jsp => ./ (: webapp 폴더) =  /webapp/el/Attribute.jsp
+	- ./el/Attribute.jsp(.html.css.jpg) 
+	
+	
+	0) 실제주소 절대경로(직접경로)
+	- /   (root-최상위폴더)
+	- ../ (상위폴더)
+	
+	
+	
 	
 	
