@@ -224,10 +224,10 @@ D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catali
 
 	=> .jsp 파일은 .java파일(서블릿)으로 변경 후 .class파일로 컴파일 후 시행
 	   jsp - 스크립틀릿 <% %> servlet - service()안에 구현
-	   jsp - 표현식 <%= %>  servlet - service()안에 구현 / out.println()로 표현
+	   jsp - 표현식 <%= %>	  servlet - service()안에 구현 / out.println()로 표현
 	   						  ex)  <%=name %>	/ out.println(name)로 표현
 	   jsp - 선언문 <%! %>    servlet - 서블릿 클래스의 멤버형태로 변경 (메서드, 변수 다 포함하는 멤버)
-	   jsp - html태그 		 servlet - service()안에 구현 / out.write() 메세지안에 들어가있음.
+	   jsp - html태그 		  servlet - service()안에 구현 / out.write() 메세지안에 들어가있음.
 	   jsp - 디렉티브 <%@ %>  servlet - 객체 생성시 참고 
 	
 	
@@ -237,7 +237,7 @@ D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catali
 	
 	
 	
-	* EL(Expression Language) 표현식      //https://creamilk88.tistory.com/117
+	* EL(Expression Language) 표현식
 	=> out.println() / <%=%> 사용해서 출력
 	   ${  } 형태로 변경
 	
@@ -299,6 +299,43 @@ D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catali
 	0) 실제주소 절대경로(직접경로)
 	- /   (root-최상위폴더)
 	- ../ (상위폴더)
+	
+	
+	
+	
+	* JSTL (JSP Standard Tag Library) 
+	
+	: 자카르타 회사 (아파치)에서 제공하는 자주 사용되는 기능들을 모아놓은 커스텀 태그
+	
+	1) CORE 라이브러리 : 기본적인 기능(변수,출력,조건문,반복문,페이지이동)
+	2) Fommatting 라이브러리 : 국제화/형식화 기능 (다국어기능, 날짜, 숫자 형식)
+	3) DataBase 라이브러리 : SQL 동작 (CRUD)
+	4) XML 라이브러리 : XML 코드 처리
+	
+	<%@ taglib prefix="접두사" uri="가져오려는 태그의 주소값" %> 
+	- %@ : 태그를 실행할때 필요한 설정들 만들어놓는 것)
+	
+	( <jsp:forward> : 액션태그 )와 비슷하게 쓰일 것
+	
+	- <c:out> : 출력
+	- <c:set> <c:remove> : 변수 설정, 삭제
+	- <c:if> <c:choose> <c:when> <c:otherwise> : 제어문
+	- <c:forEach> <c:forEachTokens> : 반복문
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
