@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,16 +37,11 @@
 																		default로 지정하면 정한 내용을 출력할 수 있음.-->
 <%-- 		<%=member.name %>				 <!-- 컴파일에러 뜸 => 페이지자체 실행X -->	 --%>
 			
-			
-			
-			
-			
-			
 			* 비교연산자 lt(<)<br>
 			  escapeXml : <,> 특수기호를 처리할때 사용 (default - false)<br>
-			<c:out value="${10 < 20}" escapeXml="true"/> <br> <!-- true출력 -->
+			<c:out value="${10 < 20}" escapeXml="true"/> <br>
 <%-- 		<c:out value="${10 &lt; 20}" escapeXml="true"/> <br> --%>
-			<c:out value="${10 lt 20}" escapeXml="false"/> <br> <!-- true출력 -->
+			<c:out value="${10 lt 20}" escapeXml="false"/> <br>
 			
 			
 			<hr>

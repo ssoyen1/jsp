@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 0927 (3) -->
 		<h1>core_set2.jsp</h1>
 	
 				<h2> 전달된 정보 출력하기 </h2>
@@ -73,7 +72,7 @@
 				<c:set value="${memberList[2] }" var="l2"/><br>
 				성별 :  ${l2.gender }<br>
 				이메일 :  ${l2.email }<br>
-<%-- 			회원가입일 :  ${memberList[2].regdte } --%>
+<%-- 			회원가입일 :  ${memberList[2].regdate } --%>
 <!-- 				<??????????????????????????????? -->
 
 				
