@@ -40,8 +40,9 @@ public class JSTLServlet1 extends HttpServlet {
 		
 		//request 영역에 저장
 		request.setAttribute("memberBean", mb);
-		
-		
+									//setAttribute("key", "value")의 형태로 값을 설정 했을 때
+									//jsp페이지에서 ${key} 를 작성하면 웹 페이지에서 value가 출력된다. 
+									
 		
 		// 회원정보 2개 더 생성(총3개) => ArrayList에 저장 => set2.jsp 에서 마지막에 넣은 회원정보만 출력
 		ArrayList memberList = new ArrayList();

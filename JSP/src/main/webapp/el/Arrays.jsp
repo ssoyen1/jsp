@@ -31,11 +31,11 @@
 				%>
 				
 				[el]: JSP 반복문 코드를 사용 불가 => JSTL 코드 사용<br>
-<%-- 				음식 : ${requestScope.foods } <!-- 음식 : [Ljava.lang.String;@c45866  = 스트링배열안에 객체가 존재한다.--> --%>
+<%-- 			음식 : ${requestScope.foods } <!-- 음식 : [Ljava.lang.String;@c45866  = 스트링배열안에 객체가 존재한다는 뜻--> --%>
 				음식 : ${requestScope.foods[0] }<br>
 				음식 : ${requestScope.foods[1] }<br>
 				음식 : ${foods[2] }<br> <!--  영역객체 지워도 됨 -->
-				음식 : ${requestScope.foods[3] }<br>
+				음식 : ${requestScope.foods[3] }<br> 
 				음식 : ${requestScope.foods[4] }<br>
 				
 				
@@ -55,7 +55,7 @@
 				<hr>
 				[JSP] <br>
 				<%
-					List sports = (List) request.getAttribute("sports"); // 업캐스팅했으니 다운캐스팅 해야함
+					List sports = (List) request.getAttribute("sports"); // 업캐스팅했으니 다운캐스팅 해야함 ???무슨말임 ?
 				
 					for(int i=0; i<sports.size();i++) {
 						%>

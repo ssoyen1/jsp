@@ -287,11 +287,11 @@ D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catali
 	
 	* 가상주소 - 상대경로
 	
-	1) 가상주소 호출했을 때 
+	1) 가상주소 호출했을 때 (가르쳐주면안되니까, URL)
 	- ./test1 에서  => ./ 의 의미 (: 프로젝트명)  =  /JSP/test1
 	
 	
-	2) 실제주소 호출
+	2) 실제주소 호출 (이클립스안 경로)
 	- ./el/Attribute.jsp => ./ (: webapp 폴더) =  /webapp/el/Attribute.jsp
 	- ./el/Attribute.jsp(.html.css.jpg) 
 	

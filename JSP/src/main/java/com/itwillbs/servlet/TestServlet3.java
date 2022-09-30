@@ -45,7 +45,7 @@ public class TestServlet3 extends HttpServlet {
 		kim.setP(iPhone);//담으려면 따로 객체 생성을 해줘야한다.
 		
 		// request 영역 저장 (자바코드지만 jsp의 request,respond 받아쓸 수 있음)
-		request.setAttribute("Person", kim); // 이미 person에 phone 저장되어있으므로 따로 보낼필요 X
+		request.setAttribute("Person", kim); //phone은 이미 person에 phone 저장되어있으므로 따로 보낼필요 X
 		
 		// ./el/Beans.jsp 이동 후 출력(jsp/el)
 		RequestDispatcher dis = 

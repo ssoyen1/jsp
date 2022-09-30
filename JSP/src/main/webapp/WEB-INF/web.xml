@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>JSP</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  
+<!--   <error-page> -->
+<!--   	<error-code>404</error-code> -->
+<!--   	<location>/error/404Err.jsp</location> -->
+<!--   </error-page> -->
+  
+<!--   <error-page> -->
+<!--   	<error-code>500</error-code> -->
+<!--   	<location>/error/500Err.jsp</location> -->
+<!--   </error-page> -->
+
+<!-- html과 비슷하게 생겼지만 html 코드는 못씀 . 
+목적 : 단순 정보저장 - 태그를 사용하여  -->
+
+<!-- 배포서술자 : 프로젝트 실행할때 가장 먼저 호출 (= 웹환경설정파일)-->
+<!--  해당파일은 오류가 생기면 표시가 잘 안남. 그결과로 톰캣이 실행불가 (xml에는 의미없는 주석은 안달아주는게 좋음. 별도의 텍스트파일만들기)-->
+
+<!--  서블릿 사용가능하도록 매핑 (서블릿의 복잡하고 긴 ㄱ이름을 간결한 url로 바꾸는 것, 보안상 문제로 경로노출방지)-->
+<servlet>
+	<servlet-name>ExServlet1</servlet-name> 
+	<servlet-class>com.itwillbs.servlet.ExServlet1</servlet-class> <!-- 서블릿 실제파일 -->
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ExServlet1</servlet-name>
+	<url-pattern>/ex1</url-pattern> <!--  -->
+</servlet-mapping> 
+
+<servlet>
+	<servlet-name>ExServlet3</servlet-name>
+	<servlet-class>com.itwillbs.servlet.ExServlet3</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ExServlet3</servlet-name>
+	<url-pattern>*.ex3</url-pattern>
+</servlet-mapping>
+
+
+
+<servlet>
+	<servlet-name>TestServlet1</servlet-name>
+	<servlet-class>com.itwillbs.servlet.TestServlet1</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>TestServlet1</servlet-name>
+	<url-pattern>/test1</url-pattern>
+</servlet-mapping>
+
+
+
+  
+  <!-- 안쓸꼬임..나중에 프로젝트할 때 할거양!  -->
+  
+</web-app>

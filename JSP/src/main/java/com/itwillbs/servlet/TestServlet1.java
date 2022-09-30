@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 //0926
 
-
 //	* 서블릿 생성 규칙
 //	1) javax.servlet.Servlet 인터페이스 객체를 구현하기
 //	2) 1번의 동작을 하기 어려운 경우, javax.servlet.http.HttpServlet 상속하기
@@ -21,10 +20,7 @@ import javax.servlet.http.HttpSession;
 //	6) web.xml (배포서술자) 서블릿과 주소(url) 매핑
 //		=> servlet 2.3이후에서는 어노테이션으로 대체 @WebServlet()
 
-
-
-
-public class TestServlet1  extends HttpServlet{ //1) 상속받기 - 임포트
+public class TestServlet1  extends HttpServlet{ //1) 상속받기 - 임폴트
 			
 			// 2)  alt + shift + s + v 
 			// 3) web.xml에서 mapping 하기
@@ -45,11 +41,10 @@ public class TestServlet1  extends HttpServlet{ //1) 상속받기 - 임포트
 			
 				
 				// request 영역에 정보 저장
-				request.setAttribute("cnt", 1000); // 1000을 cnt에 저장한다.
+				request.setAttribute("cnt", 1000); //request.setAttribute("객체명", 객체);
 //				request.setAttribute("cnt", new Integer(1000)); // 기본형 타입을 인티저로 바꾸는 것.
 																// 컴파일러 버전이 낮았을 때 사용.(1.3정도일떄)
-																// 파라미터  : 브라우저에서 만든 정보
-																// 어트리뷰트 : 서블릿에서 만든 정보
+				
 				
 				// session 영역에 정보 저장
 						// 영역객체를 무시해버리면 영역범위의 크기가 작은 곳에서 큰 곳으로 이동하면서 검색
@@ -61,16 +56,14 @@ public class TestServlet1  extends HttpServlet{ //1) 상속받기 - 임포트
 				
 				
 			
-//				//(1) (1,2 세트)
-////			response.getWriter().append("<h1> HTML 메세지 작성하기</h1>");
+//				//(1)
+////				response.getWriter().append("<h1> HTML 메세지 작성하기</h1>");
 //				response.setContentType("test/html; charset=UTF-8");
 //				
 //				//(2)
 //				PrintWriter out = response.getWriter();
 //				out.print("<h1> HTML 메세지 작성하기 222 </h1>");
 //				out.close();
-				
-				
 				
 				//(3) forward 방식 -  포워딩
 				// 	  1. 페이지 이동시 주소 변경X, 화면 변경O 

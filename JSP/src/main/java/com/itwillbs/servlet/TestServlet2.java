@@ -40,13 +40,13 @@ public class TestServlet2 extends HttpServlet {
 		
 		// 스포츠종류를 ArrayList 저장
 //		ArrayList sports = new ArrayList();
-		List sports = new ArrayList(); // 
+		List sports = new ArrayList();
 		
-		sports.add("축구"); //리스트에 값을 추가함
+		sports.add("축구");
 		sports.add("야구");
 		sports.add("농구");
 		sports.add("배구");
-		sports.add("펜싱"); 
+		sports.add("펜싱");
 		
 		// request 영역 저장
 		request.setAttribute("sports", sports);

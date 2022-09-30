@@ -18,10 +18,7 @@
 		// request 영역 저장
 		// request.setAttribute("Person", Person); 으로 보냈음
 		Person p = (Person) request.getAttribute("person");
-		
 	
-		
-		
 		%>
 		
 		이름 : <%=p.getName() %>
