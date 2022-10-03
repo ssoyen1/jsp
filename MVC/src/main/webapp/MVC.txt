@@ -1,0 +1,95 @@
+MVC.txt
+
+model2방식으로 개발(디자인영역과 비즈니스로직(자바코드)의 분리)
+ MVC 패턴 활용
+ 
+ 
+ * MVC 패턴 (p.556, 567)
+   Model : 비즈니스 로직처리 (디비 사용) / .java파일사용(POJO : Plan Old Java Object)
+   View  :  화면 UI (디비사용X) / .jsp페이지 만듦
+   Controller : model, view사이의 연결/ .java파일사용(Servlet 확장자는 java지만 자바역할도 디비역할도?하는 서블릿필요)
+   
+   
+   사용자 요청 -> 	 web.xml 	->	 Controller		<-> 	Model	    <->   Mysql/Oracle
+   				 (배포서술자)			|	
+   				 						V
+   
+    
+   사용자 요청 -> 	 web.xml 	->	    FC		<-> 	M [C/M(DAO에 가깝다]  	<->   Mysql/Oracle
+   				 (배포서술자)			|	
+   				 						V
+   				 						
+  
+  
+  
+  * 관심사의 분리 => 일을 따로한다. 하나의 목표를 위해서 (= MVC패턴 등장이유, 목적)
+  	=> (궁극적인목표) 좋은 코드
+   
+   
+   
+   
+   * 추상클래스  : 객체를 혼자서 생성할 수 없는 클래스 ( = 자생력이 없음. 혼자서는 못만듦. 
+   															but 상속을하면, 누가옆에서 도와주면 만들 수 있음)
+ 			   	   (만들 수 없는 이유) 추상메서드 때문 )
+ 			   	   => (사용할 수 있는 방법) 상속관계를 사용해서 객체를 사용
+ 			   	   	   but 객체를 생성할 수 없는데 부모를 어떻게 만듦? 혼자서 못할뿐 도와주면 만들 수 있음
+ 			   	   
+  	 - 추상메서드  : body{}가 없는 메서드 =  실행할 코드가 없는 메서드 (실행X, 호출하면 안됨)
+  	 			    (body{}의역할) 메서드에 필요한 동작을 수행)
+  	 			     - public abstract void method() ;
+  	 			   
+  	 - 상속관계를 사용할 경우 반드시 추상메서드는 '오버라이딩'해서 사용해야함(강제성.무조건!)
+  	 				- 원래 오버라이딩 = 부모것을 그대로 가져다 씀, 실행결과만 다름
+  	 				- 오버라이딩 할 때 , 똑같이쓰지않고 예외 ㅇ		   
+   					-  public void method(){ // abstract와 ;를 삭제
+   					
+   					   }
+   					   
+   					   
+   	 abstract class 클래스명 {
+   	 	변수,상수
+   	 	메서드,추상메서드
+   	 }
+   
+   
+   
+   
+   * 인터페이스(interface) : 혼자서 객체 생성X => 상속을 통한 구현 / 껍데기
+   
+   interface 인터페이스명 {
+   		상수
+   		추상메서드
+   
+   
+   } 
+   
+   
+				     <!--  한글처리 필터 설정하기  -->
+				  <filter>
+				  	<filter-name>Set Character Encoding</filter-name>
+				  	<filter-class>필터를 처리해줄 클래스</filter-class>
+				  	<init-param></init-param>							init : 초기화
+				  														init-param : 파라미터를 가지고 초기화하겠다	
+				  </filter>  
+				  
+				  <filter-mapping>
+				  	<filter-name>Set Character Encoding</filter-name>
+				  	<url-pattern>/*</url-pattern> 						/* 내프로젝트시작하는 모든주소 
+				  </filter-mapping>
+				  <!--  한글처리 필터 설정하기  -->
+				   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
