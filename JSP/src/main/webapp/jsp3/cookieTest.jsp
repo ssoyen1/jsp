@@ -24,6 +24,9 @@
 <body>
 	<h1> cookieTest.jsp </h1>
 	
+
+	
+	
 	<h2> 쿠키</h2>
 	=> 이름, 값, 유효기간, 도메인, 경로... 구성됨<br>
 	   이름 : 알파벳, 숫자
@@ -34,11 +37,11 @@
 	<%
 		// 쿠키값 가져오기
 		Cookie[] cookies = request.getCookies();
-		// 같은 쿠키가 여러개 있을 거여서 배열을 사용해서 들고옴
+										// 같은 쿠키가 여러개 있을 거여서 배열을 사용해서 들고옴
 		
 		
 		String value = "";
-		// 쿠키값 내가 원하는 정보 조회
+							// 쿠키값 내가 원하는 정보 조회
 		if(cookies != null){ //쿠키가 존재할때 
 			for(int i=0;i<cookies.length;i++){
 				if(cookies[i].getName().equals("id")){
