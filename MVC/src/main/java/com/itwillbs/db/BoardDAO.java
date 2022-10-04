@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BoardDAO {
 
@@ -120,6 +121,43 @@ public class BoardDAO {
 		
 		
 		
+		// 글 전체 개수 확인 - getBoardCount()
+		public int getBoardCount() {
+			int cnt = 0;
+			
+			
+			try {
+				// 1.2. 디비연걸
+				con = getConnection();
+				
+				
+				// 3. sql
+				sql = "select count(*) from itwill_board";
+				pstmt = con.prepareStatement(sql);
+				
+				
+				// 4. sql 실행
+				rs = pstmt.executeQuery();
+				
+				
+				// 5. 데이터처리
+				if(rs.next()) {
+//					cnt = rs.getInt(1); // 아래와 같은 코드. 인덱스로 접근하는게 더빠름 ㅎㅎ
+					cnt = rs.getInt("count(*)");
+				}
+				
+				System.out.println(" DAO : 전체 글 개수 : "+cnt+"개");
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				closeDB();
+			}
+			
+			
+			return cnt;
+		}// 글 전체 개수 확인 - getBoardCount()
 		
 		
 		
@@ -127,4 +165,76 @@ public class BoardDAO {
 		
 		
 		
-}
+		
+		
+		
+		
+		
+		// 글정보 가져오기  메서드 - getBoardList()
+		public ArrayList getBoardList() {
+			System.out.println(" DAO : getBoardList() 호출 " );
+			// 글정보 모두 저장하는 배열
+			ArrayList boardList = new ArrayList();
+			
+		try {
+			// 1.2 디비연결
+			con = getConnection();
+			
+			// 3. sql 작성(select) & pstmt 객체
+			sql = "select * from itwill_board"; // 기존에 있는 글들을 가져와서 수행하므로.
+			pstmt = con.prepareStatement(sql);
+			
+			// 4. sql 실행
+			rs = pstmt.executeQuery();
+			
+			// 5. 데이터 처리( DB->DTO->List)
+			while(rs.next()) {  // select로 전체를 다 가져오니까 계속 반복하면서 정보 가져오도록 함 if아님! 계속 반복해야하니까.
+				
+				// DB -> DTO
+				BoardDTO dto = new BoardDTO(); // dto에 하나의 정보를 다 저장하여 리스트로감
+				dto.setBno(rs.getInt("bno"));
+				dto.setContent(rs.getString("content"));
+				dto.setDate(rs.getDate("date"));
+				dto.setFile(rs.getString("file"));
+				dto.setName(rs.getString("name"));
+				dto.setPass(rs.getString("pass"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_seq(rs.getInt("re_seq"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setIp(rs.getString("ip"));
+				
+				// DTO -> List
+				
+				boardList.add(dto);  // 돌때마다 새로운 dto가 만들어지고 또 while 돌면 새로운 dto 생기도록 함.
+									 // ArrayList를 생성한 후 add() 메소드로 엘레멘트를 추가할 수 있음
+				
+			}//while
+			
+			System.out.println(" DAO : 게시판 목록 저장완료! ");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+			return boardList; // 이 메서드가 실행되면 boardList 리턴하기
+		}
+		// 글정보 가져오기  메서드 - getBoardList()
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+}//BoardDAO

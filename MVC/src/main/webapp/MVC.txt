@@ -54,8 +54,13 @@ model2방식으로 개발(디자인영역과 비즈니스로직(자바코드)의
    
    
    
-   * 인터페이스(interface) : 혼자서 객체 생성X => 상속을 통한 구현 / 껍데기
    
+   
+   * 인터페이스(interface) : 혼자서 객체 생성X => 상속을 통한 구현 / 껍데기
+	   
+	    추상클래스는 IS - A "~이다".
+		인터페이스는 HAS - A "~을 할 수 있는".
+	   
    interface 인터페이스명 {
    		상수
    		추상메서드
@@ -85,11 +90,104 @@ model2방식으로 개발(디자인영역과 비즈니스로직(자바코드)의
    
    
    
+   * 커넥션풀(Connection Pool) p.443
+   
+   :톰캣 자체에서 커넥션풀 지원해주지만 여러회사에서 만드는 커넥션풀이 존재하고, 
+    우리는 자카르타에서 지원하는 서버정보를 사용할 것.
+    - http://commons.apache.org/ 
+      [ 필요한 API 설치 ] 라이브러리 다운받기
+	    commons-pool2-2.11.1.jar
+	    commons-dbcp2-2.9.0-bin
+	    commons-collections4-4.4-bin
    
    
    
    
    
+   * CP은 끊임없이 생성되는 커넥션의 문제 해결 기술
    
+   => 성능저하 (많은 데이터)
+   => 컨테이너(tomcat:생성부터 소멸까지에 대한 모든처리를 관리해주는 것) 당 1개의 커넥션을 사용
+   => 컨테이너당 자동지원 수행 (커넥션풀을 백터(어레이리스트 같은것)에 저장관리)
    
-   
+   		ex) CP : [con][con][con][con][con][con] {임시con}
+   		
+   		
+   		
+   		
+   		
+   		<특징>
+   		
+   		1) service() 메서드당 1개씩 할당
+   			( jsp나 서블릿을 실행시킬때 작동되는 것. 대여해줬다가 반납받음)
+		2) 커넥션의 개수 제한 - 웨이팅
+			( 너무많이 만들어주니까 성능이 너무 떨어지므로 필요한 개수만큼 제한할 것)
+		    ( 커넥션 필요한 애들 기다리게 해서 다른애가 반납하면 줌)
+		3) 커넥션 관리자가 객체 모두 사용시 자원 해제
+		
+		
+		
+		
+		
+		< 작업 순서>
+		 
+		1. 웹페이지 요청
+		2. 할당될 커넥션이 있는지 체크 (커넥션풀)
+		3-1. 커넥션이 있을 때 
+		  4. 커넥션 객체 할당(대여)
+		  5. 커넥션 객체 사용(pstmt, execute()....)
+		  6. 커넥션 객체 반납
+		  
+		3-2. 커넥션이 없을 때
+   		  4. 할당될 객체가 없음
+   		  5. 객체 반환 대기 / 커넥션 객체 생성(임시)
+   		  
+   		  
+   		  
+   		  
+   		  
+   		< 디비 연결에 필요한 정보 저장 > 
+   		  : 고정된 값이므로 바꿀 수 없음
+   		  
+			<Resource 
+				name = "자원의 이름" 
+				auth = "자원관리자, Application/Container"  - 특정객체 사용하도록
+				type = "리소스를 처리할 수 있는 자바타입" 
+				driverClassName = "JDBC 드라이버 주소" 
+				username = "DB ID" 
+				password = "DB PW" 
+				url = "DB 접속 주소" 
+				maxWait = "최대 대기 시간" 
+			/>
+			
+		
+			<Resource 
+				name = "jdbc/mvc" 
+				auth = "Container" 
+				type = "javax.sql.Datasource" 
+				driverClassName = "com.mysql.cj.jdbc.Driver" 
+				username = "root" 
+				password = "1234" 
+				url = "jdbc:mysql://localhost:3306/" 
+				maxWait = "5000" 
+			/>
+		
+		
+		
+		<context.xml> 
+		: 대소문자, 서버동기화, 안에 오타있으면 절대안됨.에러생겨도 뜨지않으므로
+		<Context>
+			<Resource 
+				name="jdbc/mvc" 
+				auth="Container" 
+				type="javax.sql.DataSource" 
+				driverClassName="com.mysql.cj.jdbc.Driver" 
+				username="root" 
+				password="1234" 
+				url="jdbc:mysql://localhost:3306/jspdb" 
+				maxWait="5000" 
+			/>
+		</Context>
+		
+		
+		

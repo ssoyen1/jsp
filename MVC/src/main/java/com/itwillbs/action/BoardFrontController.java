@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 // 컨트롤러를 사용하려면 => 서블릿으로만들기 (상속해서)
 //@WebServlet("/board2") //어노테이션
 @WebServlet("*.bo") //앞에 주소가 무엇이든지 ~~~.bo 의 형태면 다 가능 
-					//
 public class BoardFrontController extends HttpServlet {
 	
 	
@@ -105,7 +104,21 @@ public class BoardFrontController extends HttpServlet {
 				}
 				
 				
-			}
+			}  // BoardWriteAction.bo
+			else if (command.equals("/BoardList.bo")) {
+				System.out.println(" C : /BoardList.bo");
+				System.out.println(" C : [패턴3]DB사용O, view출력(이동)");		
+				
+				// BoardListAction 객체 생성  (= 디비를 사용한다는 의미)
+				action = new BoardListAction(); // 다형성을 의미
+				
+				try {// 나를 부르는 애가 예외를 처리해라 
+					forward = action.execute(request, response); //forward에는 항상 티켓정보가 있을 것
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+			}	// BoardList.bo
+	
 			
 			System.out.println(" C : (2단계끝) 가상주소 매핑 완료-------------------"); // 부산역가서 티켓만끊은 격
 			//////////////////////////// 2. 가상주소매핑///////////////////////////////////////////
@@ -119,7 +132,7 @@ public class BoardFrontController extends HttpServlet {
 			//////////////////////////// 3. 페이지 이동///////////////////////////////////////////
 			System.out.println(" C : (3단계시작) 페이지이동 시작-------------------"); // 
 			if(forward != null) { // 이동정보가 있을때(티켓이 있을때)
-				if(forward.isRedirect()) { // true (   boolean이라서 (세터게터저장될때 불린으로 저장되었으므로)
+				if(forward.isRedirect()) { // true (   boolean이라``````````````서 (세터게터저장될때 불린으로 저장되었으므로)
 										  
 					 System.out.println("C : 이동방식 : " + forward.isRedirect() + ", 주소:  " + forward.getPath() );
 										   // forward에 어떻게 갈지 저장해놨으므로 불러오기. 
