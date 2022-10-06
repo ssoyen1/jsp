@@ -18,8 +18,8 @@
 			  <%
 // 			  	response.sendRedirect("./board");
 // 			  	response.sendRedirect("./test.bo"); //BoardFrontController 에서 @WebServlet("*.bo")로 설정했을때 잘되는지 확인
-			  	response.sendRedirect("./BoardWrite.bo"); //.이 없는 주소로 호출하는 이유? 
-			  	
+// 			  	response.sendRedirect("./BoardWrite.bo"); //.이 없는 주소로 호출하는 이유? 
+			  	response.sendRedirect("./BoardList.bo"); 
 			  
 			  %>
 			  

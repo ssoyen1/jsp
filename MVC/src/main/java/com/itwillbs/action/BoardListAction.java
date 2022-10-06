@@ -61,8 +61,8 @@ public class BoardListAction implements Action {
 			
 	      
 	      
-	      // 디비에 있는 전체 글 리스트 가져오기
-	      ArrayList boardListAll = dao.getBoardList();
+	      // 디비에 있는 전체 글 리스트 가져오기 (startRow, pageSize)
+		 ArrayList boardListAll = dao.getBoardList(startRow, pageSize);
 	      // System.out.println("M : " + boardListAll );
 	      // 실행 해보고 주석처리 해야하는 syso
 	      

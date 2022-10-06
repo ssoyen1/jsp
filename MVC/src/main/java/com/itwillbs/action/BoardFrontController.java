@@ -57,6 +57,10 @@ public class BoardFrontController extends HttpServlet {
 			
 			//////////////////////////// 2. 가상주소매핑///////////////////////////////////////////
 			// 실제주소 (ex).jsp/.css/.html)
+			
+			
+			// 패턴2 : ~pro ( 디비에서 들고와서 뭔가 활동을 하면 /처리)
+			// 패턴3 : ~form ( 눈앞에 가져/눈에보이는것)
 			System.out.println(" C : (2단계시작) 가상주소 매핑 시작-----------------");
 			
 			Action action = null; // 미리변수 선언해놓고 밑에선 선언없이 사용
@@ -74,11 +78,13 @@ public class BoardFrontController extends HttpServlet {
 				
 		
 				
-			}  else if (command.equals("/BoardWriteAction.bo")) { // .의 의미는 프로젝트 이름이므로 2단계부터는 .이없는 /부터의 가상주소만?얻어와야햠?뭔소리
+				
+			}  
+			else if (command.equals("/BoardWriteAction.bo")) { // .의 의미는 프로젝트 이름이므로 2단계부터는 .이없는 /부터의 가상주소만?얻어와야햠?뭔소리
 								
 				// 흰화면이떴는데도 콘솔에 안뜨면? 보통 다 이 주소문제임. .이 이없어야함..?ㅋㅋ
 				System.out.println(" C : /BoardWriteAction.bo 호출");
-				System.out.println(" C : [패턴2] DB사용 O, 페이지이동(화면전환)"); // 그냥 적었을때 콘솔에서 리로드 뜬다. 서버동작하는방법?. 제일좋은 습관은 작업전 서버 중지 후 작업작성후 서버실행. 결과보는것
+				System.out.println(" C : [패턴2] DB사용 O, 페이지이동(화면전환.form이 pro에 넘겨주는 느낌)"); // 그냥 적었을때 콘솔에서 리로드 뜬다. 서버동작하는방법?. 제일좋은 습관은 작업전 서버 중지 후 작업작성후 서버실행. 결과보는것
 																				  // WritheAction -> List
 				
 				// BoardWriteAction() 객체생성
@@ -104,6 +110,8 @@ public class BoardFrontController extends HttpServlet {
 				}
 				
 				
+				
+				
 			}  // BoardWriteAction.bo
 			else if (command.equals("/BoardList.bo")) {
 				System.out.println(" C : /BoardList.bo");
@@ -118,6 +126,105 @@ public class BoardFrontController extends HttpServlet {
 					e.printStackTrace();
 				} 
 			}	// BoardList.bo
+			
+			
+			
+			
+			
+			else if(command.equals("/BoardContent.bo"))	{
+				System.out.println(" C : /BoardContent.bo 호출");
+				System.out.println(" C : [패턴3]DB사용O, view출력(이동)");	
+				
+				// BoardContentAction 객체 생성
+				action = new BoardContentAction(); //예외발생하기때문에 트라이캐치안에 넣기
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				
+			} //BoardContent.bo
+			
+			else if(command.equals("/BoardUpdate.bo")) {
+				System.out.println(" C : /BoardUpdate.bo 호출");
+				System.out.println(" C : [패턴3]DB사용O, view출력(이동)");	// updateform 같은 기분. 내눈앞에 디비를 사용하면 3번
+				
+				
+				//BoardUpdateAction 객체 생성
+				action = new BoardUpdateAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				
+				
+			} // BoardUpdate.bo
+			
+			else if(command.equals("/BoardUpdateProAction.bo")) {
+				System.out.println( " C : BoardUpdateAction.bo 호출");
+				System.out.println( " C : [패턴2] DB사용 0, 페이지이동(화면전환)"); //updatepro 디비를쓴흔적은 안보임. 그냥이동.
+				
+				// BoardUpdateAction 객체 생성
+				action = new BoardUpdateProAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				
+			} // BoardUpdateAction
+			
+			else if(command.equals("/BoardDelete.bo")) {
+				System.out.println(" C : /BoardDelete.bo 호출");
+				System.out.println(" C : [패턴3]DB사용O, view출력(이동)");
+				
+				//BoardDeleteAction 객체 생성
+				action = new BoardDeleteAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+			} // BoardDeleteAction
+			
+			
+			
+			
+			
+			else if(command.equals("/BoardDeleteProAction.bo")) {
+				System.out.println( " C : BoardUpdateAction.bo 호출");
+				System.out.println( " C : [패턴2] DB사용 0, 페이지이동(화면전환)"); 
+				
+				// BoardDeleteProAction 객체 생성
+				action = new BoardDeleteProAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			} // BoardDeleteProAction
+					
 	
 			
 			System.out.println(" C : (2단계끝) 가상주소 매핑 완료-------------------"); // 부산역가서 티켓만끊은 격
@@ -132,7 +239,7 @@ public class BoardFrontController extends HttpServlet {
 			//////////////////////////// 3. 페이지 이동///////////////////////////////////////////
 			System.out.println(" C : (3단계시작) 페이지이동 시작-------------------"); // 
 			if(forward != null) { // 이동정보가 있을때(티켓이 있을때)
-				if(forward.isRedirect()) { // true (   boolean이라``````````````서 (세터게터저장될때 불린으로 저장되었으므로)
+				if(forward.isRedirect()) { // true (  있다없다/ boolean이라서 (세터게터저장될때 불린으로 저장되었으므로)
 										  
 					 System.out.println("C : 이동방식 : " + forward.isRedirect() + ", 주소:  " + forward.getPath() );
 										   // forward에 어떻게 갈지 저장해놨으므로 불러오기. 
