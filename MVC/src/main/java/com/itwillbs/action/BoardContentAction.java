@@ -41,7 +41,7 @@ public class BoardContentAction implements Action { // 글 적은 것 내용보�
       
       //(5) 페이지 이동(준비) - 빈티켓 준비
       ActionForward forward = new ActionForward();
-      forward.setPath("./board/boardContent.jsp");
+      forward.setPath("./board/boardContent.jsp"); 
       forward.setRedirect(false); // 위의 request를 가져가므로 false(forward-포워딩을 해야만 리퀘스트영역을 전달할 수있는것!!!!!)
       
       
