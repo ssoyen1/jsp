@@ -48,7 +48,8 @@ public class BoardFrontController extends HttpServlet {
 			
 			System.out.println(" C : (1단계끝) 가상주소 계산 완료-------------------");
 			
-			//////////////////////////// 1. 가상주소 계산단계//////////////////////////////////////
+			//////////////////////////// 1. 가상주소 계산단계/
+			/////////////////////////////////////
 			
 			
 			
@@ -190,40 +191,88 @@ public class BoardFrontController extends HttpServlet {
 				
 			} // BoardUpdateAction
 			
-			else if(command.equals("/BoardDelete.bo")) {
-				System.out.println(" C : /BoardDelete.bo 호출");
-				System.out.println(" C : [패턴3]DB사용O, view출력(이동)");
-				
-				//BoardDeleteAction 객체 생성
-				action = new BoardDeleteAction();
-				
-				try {
+	          else if(command.equals("/BoardDeleteAction.bo")) {
+	              System.out.println("C : /BoardDeleteAction.bo 호출");
+	              System.out.println("C : [패턴2] DB 사용 O, 페이지 이동(화면 전환)");
+	              
+	              // BoardDeleteAction 객체 생성
+	              action = new BoardDeleteAction();
+	              try {
+	                forward = action.execute(request, response);
+	                // forward 쓰는 이유? 다형성 구현....
+	                // 형태는 같지만 실행하는 동작들이 다 다름
+	             } catch (Exception e) {
+	                e.printStackTrace();
+	             }
+	              
+	           }// BoardDeleteAction
+	         
+	           
+	           
+	           else if(command.equals("/BoardReWrite.bo")) {
+		          System.out.println("C : /BoardReWrite.bo 호출");
+		          System.out.println("C : [패턴1] DB 사용 X, view 페이지로 이동");
+		          
+		          forward = new ActionForward();
+		          forward.setPath("./board/reWriteForm.jsp");
+		          forward.setRedirect(false); // 포워딩이유 : 현재 실행되는 주소는 .bo이나 실제이동주소는 .jsp 이기때문에 , 주소는 안바뀌면서 화면은 바뀌는 포워딩사용
+		          
+		          
+	           } //BoardReWrite
+			
+			
+	           else if(command.equals("/BoardReWriteAction.bo")) {
+	        	   System.out.println("C : /BoardReWriteAction.bo 호출");
+	        	   System.out.println("C : [패턴2] DB 사용 O, 페이지 이동(화면 전환)");
+	        	   
+	        	   //BoardReWriteAction() 객체 -execute()
+	        	   action = new BoardReWriteAction();
+		        	   try {
+		        		   forward = action.execute(request, response);
+	//					forward = new BoardReWriteAction().execute(request, response); // 이렇게 사용할 수 있지만 안쓰는게 좋음.
+																					   // 1. 강한결합이므로 (업캐스팅안함)
+																					   // 2. 가비쥐다.. 나쁜코드임 ..냄새나는.. , 1번만 쓰고 사용할 수 없음. 메모리만 차지함. 동작은하지만 문제있다.
+																					   // 	 => 나쁜코드 호출 형태(가비지 생성) 
+																	        		   // 2줄짜리 쓰는 이유 
+		        		   															   // 1. 약한결합으로 만들기위해   
+																
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+			 															
+		        	
+		           }
+	           }//BoardReWriteAction
+			
+	           else if(command.equals("/BoardFileWrite.bo")) {
+	        	   System.out.println("C : /BoardFileWrite.bo 호출");
+			       System.out.println("C : [패턴1] DB 사용 X, view 페이지로 이동");
+			       
+			       forward = new ActionForward();
+			       forward.setPath("./board/fWriteForm.jsp");
+			       forward.setRedirect(false);
+	        	   
+	           }//BoardFileWrite.bo
+			
+			
+			
+	           else if(command.equals("/BoardFileWriteAction.bo")) {
+	        	   System.out.println("C : /BoardFileWriteAction.bo 호출");
+	        	   System.out.println("C : [패턴2] DB 사용 O, 페이지 이동(화면 전환)");
+	        	   
+	        	   
+	        	   // BoardFileWriteAction() 객체 생성
+	        	   action = new BoardFileWriteAction();
+	        	   
+	        	   try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-			} // BoardDeleteAction
+	        	   
+	           }//BoardFileWriteAction.bo
 			
-			
-			
-			
-			
-			else if(command.equals("/BoardDeleteProAction.bo")) {
-				System.out.println( " C : BoardUpdateAction.bo 호출");
-				System.out.println( " C : [패턴2] DB사용 0, 페이지이동(화면전환)"); 
-				
-				// BoardDeleteProAction 객체 생성
-				action = new BoardDeleteProAction();
-				
-				try {
-					forward = action.execute(request, response);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			} // BoardDeleteProAction
 					
 	
 			
